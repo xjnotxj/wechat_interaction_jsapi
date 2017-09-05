@@ -17,17 +17,23 @@ let Jsapi = require("wechat_interaction_jsapi");
 ```
 //WECHAT_APPID, WECHAT_APPSECRET 分别为开发者 id 和密码，在微信公众平台->开发->基本配置里可找到
 const jssdk = new Jsapi(WECHAT_APPID, WECHAT_APPSECRET);
+```
 
+```
 //获取 access_token, 返回promise对象，resolve回调返回string
 jssdk.getAccessToken().then(
     re => res.end(re)
 ).catch(err => console.error(err));
+```
 
+```
 //获取 jsapi_ticket, 返回promise对象，resolve回调返回string
 jssdk.getJsApiTicket().then(
     re => res.end(re)
 ).catch(err => console.error(err));
+```
 
+```
 //获取 JS-SDK 权限验证的签名, 返回promise对象，resolve回调返回json
 jssdk.getSignPackage(url).then(
     re => res.end(JSON.stringify(re))
@@ -49,6 +55,6 @@ jssdk.getSignPackage(url).then(
 
 ### 2、注意事项：
 
-#### （1）确认白名单已配置：微信公众平台->开发->基本配置->ip白名单 
+（1）确认白名单已配置：微信公众平台->开发->基本配置->ip白名单 
 
-#### （2）确认JS接口安全域名已配置：微信公众平台->设置->公众号配置->JS接口安全域名
+（2）确认JS接口安全域名已配置：微信公众平台->设置->公众号配置->JS接口安全域名
