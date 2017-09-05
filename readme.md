@@ -23,21 +23,21 @@ const jssdk = new Jsapi(WECHAT_APPID, WECHAT_APPSECRET);
 1、获取 access_token, 返回promise对象，resolve回调返回string
 ```
 jssdk.getAccessToken().then(
-    re => res.end(re)
+    re => console.log(re)
 ).catch(err => console.error(err));
 ```
 
 2、获取 jsapi_ticket, 返回promise对象，resolve回调返回string
 ```
 jssdk.getJsApiTicket().then(
-    re => res.end(re)
+    re => console.log(re)
 ).catch(err => console.error(err));
 ```
 
 3、获取 JS-SDK 权限验证的签名, 返回promise对象，resolve回调返回json
 ```
 jssdk.getSignPackage(url).then(
-    re => res.end(JSON.stringify(re))
+    re => console.log(JSON.stringify(re))
 ).catch(err => console.error(err));
 ```
 
