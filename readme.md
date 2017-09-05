@@ -14,27 +14,28 @@ let Jsapi = require("wechat_interaction_jsapi");
 ```
 
 ## Usage
+
+WECHAT_APPID, WECHAT_APPSECRET 分别为开发者 id 和密码，在微信公众平台->开发->基本配置里可找到
 ```
-//WECHAT_APPID, WECHAT_APPSECRET 分别为开发者 id 和密码，在微信公众平台->开发->基本配置里可找到
 const jssdk = new Jsapi(WECHAT_APPID, WECHAT_APPSECRET);
 ```
 
+1、获取 access_token, 返回promise对象，resolve回调返回string
 ```
-//获取 access_token, 返回promise对象，resolve回调返回string
 jssdk.getAccessToken().then(
     re => res.end(re)
 ).catch(err => console.error(err));
 ```
 
+2、获取 jsapi_ticket, 返回promise对象，resolve回调返回string
 ```
-//获取 jsapi_ticket, 返回promise对象，resolve回调返回string
 jssdk.getJsApiTicket().then(
     re => res.end(re)
 ).catch(err => console.error(err));
 ```
 
+3、获取 JS-SDK 权限验证的签名, 返回promise对象，resolve回调返回json
 ```
-//获取 JS-SDK 权限验证的签名, 返回promise对象，resolve回调返回json
 jssdk.getSignPackage(url).then(
     re => res.end(JSON.stringify(re))
 ).catch(err => console.error(err));
