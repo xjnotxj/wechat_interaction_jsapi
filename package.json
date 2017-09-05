@@ -1,6 +1,6 @@
 {
-  "name": "wechat_interaction_jssdk",
-  "version": "1.0.0",
+  "name": "wechat_interaction_jsapi",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://xjnotxj@github.com/xjnotxj/wechat_interaction_share.git"
+    "url": "git+https://xjnotxj@github.com/xjnotxj/wechat_interaction_jsapi.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xjnotxj/wechat_interaction_share/issues"
+    "url": "https://github.com/xjnotxj/wechat_interaction_jsapi/issues"
   },
-  "homepage": "https://github.com/xjnotxj/wechat_interaction_share#readme",
+  "homepage": "https://github.com/xjnotxj/wechat_interaction_jsapi#readme",
   "dependencies": {
     "url": "^0.11.0"
   }

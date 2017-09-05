@@ -2,7 +2,7 @@ let fs = require("fs");
 let https = require('https');
 let crypto = require('crypto');
 
-class Jssdk {
+class Jsapi {
 
     constructor(appId, appSecret) {
         this.appId = appId;
@@ -15,7 +15,7 @@ class Jssdk {
         let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let str = "";
         for (let i = 0; i < length; i++) {
-            str += chars.charAt(Math.round(Math.random() * 16));
+            str += chars.charAt(Math.floor(Math.random() * 62));
         }
         return str;
     }
@@ -37,6 +37,11 @@ class Jssdk {
 
                         data = JSON.parse(data);
 
+                        //如果微信返回错误
+                        if (data.errcode) {
+                            return reject(new Error(data.errmsg));
+                        }
+
                         const access_token = data.access_token;
 
                         if (!access_token) {
@@ -51,7 +56,7 @@ class Jssdk {
                         //获得的access_token写入文件
                         fs.writeFile(filename, JSON.stringify(insert_data), function (err) {
                             if (err) {
-                                return reject(new Error("getAccessToken 获取的access_token写入文件失败"));
+                                return reject(new Error("access_token写入文件失败"));
                             }
                             //成功后返回access_token
                             return resolve(access_token);
@@ -147,7 +152,7 @@ class Jssdk {
             try {
                 access_token = await that.getAccessToken();
             } catch (err) {
-                throw err;
+                return reject(err);
             }
 
             let url = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${access_token}&type=jsapi`;
@@ -159,6 +164,11 @@ class Jssdk {
                     if (data) {
 
                         data = JSON.parse(data);
+
+                        //如果微信返回错误
+                        if (data.errcode) {
+                            return reject(new Error(data.errmsg));
+                        }
 
                         const jsapi_ticket = data.ticket;
 
@@ -174,7 +184,7 @@ class Jssdk {
                         //获得的access_token写入文件
                         fs.writeFile(filename, JSON.stringify(insert_data), function (err) {
                             if (err) {
-                                return reject(new Error("getJsApiTicket 获取的jsapi_ticket写入文件失败"));
+                                return reject(new Error("jsapi_ticket写入文件失败"));
                             }
                             //成功后返回access_token
                             return resolve(jsapi_ticket);
@@ -288,9 +298,7 @@ class Jssdk {
             "appId": this.appId,
             "nonceStr": nonceStr,
             "timestamp": timestamp,
-            "signature": signature,
-            "url": url,
-            "string": string
+            "signature": signature
         };
 
         return signPackage;
@@ -300,4 +308,4 @@ class Jssdk {
 }
 
 
-module.exports = Jssdk;
+module.exports = Jsapi;
