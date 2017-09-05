@@ -1,5 +1,7 @@
 # Wechat JS-API接口 
 
+[![海拔](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/wechat_interaction_jsapi)
+
 ## 功能： 
 用于管理和获取微信 JSSDK 生产的*access_token*、*jsapi_ticket*和签名（*signature*）
 
