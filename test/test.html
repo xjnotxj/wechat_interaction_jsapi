@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=750,user-scalable=no">
+    <title>微信分享 测试页面</title>
+</head>
+<body>
+微信分享 测试页面
+</body>
+<script src="//cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        //前端接口地址
+        var DOMAIN_DOMAIN = "//display.6edigital.com/";
+
+        function initJssdk() {
+            var url = encodeURIComponent(location.href.split('#')[0]);
+            $.getJSON(DOMAIN_DOMAIN + 'wechat_interaction_jsapi/index/', {'url': url}, function (r) {
+
+                wx.config({
+                    debug: true,
+                    appId: r.appId,
+                    timestamp: r.timestamp,
+                    nonceStr: r.nonceStr,
+                    signature: r.signature,
+                    jsApiList: [
+                        'checkJsApi',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage'
+                        // 所有要调用的 API 都要加到这个列表中
+                    ]
+                });
+                initWxShareOption();
+            });
+        }
+
+        initJssdk();
+
+        function initWxShareOption() {
+            wx.ready(function () {
+                var share_url = location.href;
+                var share_pic = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505129505&di=925ab676fc3645428aa2c328d444660c&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.iptop.cn%2Fresource%2F2016%2F6%2F23%2F63541466645239449031035.png";
+                var share_title = '分享到朋友圈的标题';
+                var share_friend_title = '分享到朋友的标题';
+                var share_desc = '分享给朋友的描述';
+                wx.checkJsApi({
+                    jsApiList: ['checkJsApi', 'onMenuShareAppMessage', 'onMenuShareTimeline'],
+                    success: function (res) {
+                    }
+                });
+                //分享到朋友圈
+                wx.onMenuShareTimeline({
+                    title: share_title, // 分享标题
+                    link: share_url, // 分享链接
+                    imgUrl: share_pic, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+                //分享给朋友
+                wx.onMenuShareAppMessage({
+                    title: share_friend_title, // 分享标题
+                    desc: share_desc, // 分享描述
+                    link: share_url, // 分享链接
+                    imgUrl: share_pic, // 分享图标
+                    type: '', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+            });
+        }
+    });
+
+</script>
+</html>
